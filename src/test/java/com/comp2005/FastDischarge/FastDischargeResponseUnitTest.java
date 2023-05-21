@@ -13,7 +13,7 @@ class FastDischargeResponseUnitTest {
     @Test
     void testGettersAndSetters() {
         // Create sample data
-        FastDischargeRecord record1 = new FastDischargeRecord(1, "Jihn", "Doe", "123456789", "2022-01-01", "2022-01-02", 24);
+        FastDischargeRecord record1 = new FastDischargeRecord(1, "John", "Doe", "123456789", "2022-01-01", "2022-01-02", 24);
         FastDischargeRecord record2 = new FastDischargeRecord(2, "Jane", "Smith", "987654321", "2022-02-01", "2022-02-02", 24);
         ArrayList<FastDischargeRecord> fastDischarges = new ArrayList<>();
         fastDischarges.add(record1);
