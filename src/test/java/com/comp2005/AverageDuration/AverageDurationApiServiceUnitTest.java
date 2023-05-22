@@ -49,7 +49,7 @@ public class AverageDurationApiServiceUnitTest {
 
 
     @Test
-    public void testGetAverageDurationResponds() throws JsonProcessingException {
+    public void testGetAverageDurationResponse() throws JsonProcessingException {
         // Mock the REST API response
 
         when(restTemplate.getForObject(Mockito.matches("https://web.socem.plymouth.ac.uk/COMP2005/api/Employees/.*"), Mockito.any(), anyInt()))
@@ -109,7 +109,7 @@ public class AverageDurationApiServiceUnitTest {
 
 
     @Test
-    public void testNoAllocationsForEmpId() throws JsonProcessingException {
+        public void testNoAllocationsForEmpId() throws JsonProcessingException {
         // Mock the REST API response
 
         String allocationResponse = "";

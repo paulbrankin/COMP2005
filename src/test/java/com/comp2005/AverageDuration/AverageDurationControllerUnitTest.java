@@ -27,7 +27,7 @@ public class AverageDurationControllerUnitTest {
         controller = new AverageDurationController(apiService);
     }
     @Test
-    public void AverageDurationEndPoint() throws JsonProcessingException {
+    public void testAverageDurationEndPoint() throws JsonProcessingException {
         // Prepare
 
         AverageDurationResponse averageDurationResponse = new AverageDurationResponse(4, "Alex", "Brankin", "4 Days, 3 Hours, 2 Minutes");

@@ -36,7 +36,7 @@ public class AverageDurationIntegrationTest {
     }
 
     @Test
-    public void testGetAverageDurationResponse() throws JsonProcessingException {
+    public void testGetAverageDurationEndPointIntegration() throws JsonProcessingException {
         // Mock the REST API response
         String employeeResponse = "{\"id\":4,\"surname\":\"Jines\",\"forename\":\"Sarah\"}";
         String allocationResponse = "[{\"id\":99,\"admissionID\":1,\"employeeID\":4,\"startTime\":\"2020-11-28T16:45:00\",\"endTime\":\"2020-11-28T23:56:00\"}," +

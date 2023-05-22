@@ -31,7 +31,7 @@ public class FastDischargeControllerUnitTest {
     @Test
     public void testFastDischargeEndPoint() throws JsonProcessingException {
         // Prepare
-        int employeeId = 4;
+
         FastDischargeResponse mockFastDischargeResponse = new FastDischargeResponse();
         ArrayList<FastDischargeRecord> mockDischarges = new ArrayList<>();
         FastDischargeRecord mockDischarge1 = new FastDischargeRecord(88,"Tom","Berringer","66277227","2023-05-10T12:00:00","2023-05-11T12:00:00",24 );

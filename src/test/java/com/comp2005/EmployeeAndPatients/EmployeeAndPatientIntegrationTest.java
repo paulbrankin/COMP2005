@@ -42,7 +42,7 @@ public class EmployeeAndPatientIntegrationTest {
     final String patientResponse = "{\"id\":3,\"admissionDate\":\"2029-09-23T21:50:00\",\"dischargeDate\":\"2029-09-27T09:56:00\",\"patientID\":2}";
 
     @Test
-    public void testEmployeeAndPatientEndPointIntegration() throws JsonProcessingException {
+        public void testEmployeeAndPatientEndPointIntegration() throws JsonProcessingException {
         // Prepare
         int employeeId = 4;
 

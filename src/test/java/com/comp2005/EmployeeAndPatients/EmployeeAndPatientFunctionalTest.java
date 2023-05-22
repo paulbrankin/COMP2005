@@ -31,14 +31,11 @@ class EmployeeAndPatientFunctionalTest {
     }
 
     @Test
-    void employeeAndPatient_RequestOK() throws Exception {
-
-        String expectedResponse = "{\"employeeId\":4,\"employeeForename\":\"Sarah\",\"employeeSurname\":\"Jones\",\"patients\":[{\"patientForename\":\"Heather\",\"patientSurname\":\"Carter\",\"nhsnumber\":\"2224446666\"}]}";
+        void employeeAndPatient_RequestOK() throws Exception {
 
         // Invoke the method under test using MockMvc
         mockMvc.perform(get("/api/comp2005/patientlist/{id}", 4))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
+                .andExpect(status().isOk());
     }
     @Test
     void employeeAndPatient_ExpectedData() throws Exception {
@@ -50,7 +47,7 @@ class EmployeeAndPatientFunctionalTest {
                 .andExpect(MockMvcResultMatchers.content().json(expectedResponse));
     }
     @Test
-    void employeeAndPatient_IsJSON() throws Exception {
+        void employeeAndPatient_IsJSON() throws Exception {
         String expectedResponse = "{\"employeeId\":4,\"employeeForename\":\"Sarah\",\"employeeSurname\":\"Jones\",\"patients\":[{\"patientForename\":\"Heather\",\"patientSurname\":\"Carter\",\"nhsnumber\":\"2224446666\"}]}";
 
         System.out.println(("expectedResponse : " + expectedResponse));
@@ -72,7 +69,7 @@ class EmployeeAndPatientFunctionalTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.patients", hasSize(1)));
     }
     @Test
-    void employeeAndPatient_NoAdmissionsForID() throws Exception {
+        void employeeAndPatient_NoAdmissionsForID() throws Exception {
 
         mockMvc.perform(get("/api/comp2005/patientlist/{id}", 3)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -88,7 +85,7 @@ class EmployeeAndPatientFunctionalTest {
     }
 
     @Test
-    void employeeAndPatient_AplhaEmpID() throws Exception {
+        void employeeAndPatient_AplhaEmpID() throws Exception {
         mockMvc.perform(get("/api/comp2005/patientlist/{id}", "A")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
