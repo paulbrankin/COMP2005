@@ -66,7 +66,6 @@ public class BusiestDayIntegrationTest {
 
         // Verify
         verify(restTemplate).getForObject(anyString(), eq(String.class));
-        // Additional assertions on the response if needed
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
 

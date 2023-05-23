@@ -1,9 +1,12 @@
 
 package com.comp2005.EmployeeAndPatients;
 
+import com.comp2005.AverageDuration.AverageDurationApiService;
+import com.comp2005.Exceptions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -71,4 +74,54 @@ public class EmployeeAndPatientsApiServiceUnitTest {
         assertEquals("Sarah", employeeDetails.getEmployeeForename());
         assertEquals("Jones", employeeDetails.getEmployeeSurname());
     }
+
+    @Test
+    public void testNegativeEmpId() throws JsonProcessingException {
+        int employeeId = -1;
+
+        // Assert that the method throws an IllegalArgumentException with the expected error message
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            apiService.getPatientListResponse(employeeId);
+        }, "ID must be greater than or equal to zero");
+    }
+    @Test
+    public void nonExistingEmpId() throws JsonProcessingException {
+        int employeeId = 90909090;
+
+        // Assert that the method throws an IllegalArgumentException with the expected error message
+        Assertions.assertThrows(Exceptions.EmployeeNotFoundException.class, () -> {
+            apiService.getPatientListResponse(employeeId);
+        }, "ID must be greater than or equal to zero");
+    }
+    @Test
+    public void testMissingPatientData() throws JsonProcessingException {
+        int employeeId = 4;
+
+        final String patientDetails = "";
+
+        // Set up the behavior of the mocked RestTemplate
+        when(restTemplateMock.getForObject(Mockito.matches("https://web.socem.plymouth.ac.uk/COMP2005/api/Employees/*"), Mockito.any(), anyInt()))
+                .thenReturn(employeeResponse);
+        when(restTemplateMock.getForObject(Mockito.matches("https://web.socem.plymouth.ac.uk/COMP2005/api/Allocations/*"), Mockito.any()))
+                .thenReturn(admissionResponse);
+        when(restTemplateMock.getForObject(Mockito.matches("https://web.socem.plymouth.ac.uk/COMP2005/api/Patients/*"), Mockito.any(), anyInt()))
+                .thenReturn(patientDetails);
+        when(restTemplateMock.getForObject(Mockito.matches("https://web.socem.plymouth.ac.uk/COMP2005/api/Admissions/*"), Mockito.any(), anyInt()))
+                .thenReturn(patientResponse);
+
+        // Mock the JSON parsing
+        JsonNode employeeNode = new ObjectMapper().readTree(employeeResponse);
+        when(objectMapper.readTree(employeeResponse)).thenReturn(employeeNode);
+        JsonNode patientNode = new ObjectMapper().readTree(patientResponse);
+        when(objectMapper.readTree(patientResponse)).thenReturn(patientNode);
+        JsonNode admissionNode = new ObjectMapper().readTree(admissionResponse);
+        when(objectMapper.readTree(admissionResponse)).thenReturn(admissionNode);
+
+        // Assert that the method throws an IllegalArgumentException with the expected error message
+        Assertions.assertThrows(Exceptions.DataQualityIssue.class, () -> {
+            apiService.getPatientListResponse(employeeId);
+        }, "No patients found for this employee");
+    }
+
+
 }

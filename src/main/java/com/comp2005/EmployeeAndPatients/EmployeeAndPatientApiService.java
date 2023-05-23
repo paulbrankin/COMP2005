@@ -1,5 +1,6 @@
 package com.comp2005.EmployeeAndPatients;
 
+import com.comp2005.Exceptions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +30,9 @@ public class EmployeeAndPatientApiService {
     }
 
     public EmployeeAndPatientResponse getPatientListResponse(int employeeId) throws JsonProcessingException {
+        if (employeeId <= 0) {
+            throw new IllegalArgumentException("ID must be a positive integer.");
+        }
         String empUrlBase = "https://web.socem.plymouth.ac.uk/COMP2005/api/Employees/{empID}";
         String allocUrlBase = "https://web.socem.plymouth.ac.uk/COMP2005/api/Allocations/";
         String admissionUrlBase = "https://web.socem.plymouth.ac.uk/COMP2005/api/Admissions/{admissionID}";
@@ -39,6 +43,10 @@ public class EmployeeAndPatientApiService {
         EmployeeAndPatientResponse response = new EmployeeAndPatientResponse();
 
         String employeeResponse = restTemplate.getForObject(empUrlBase, String.class, employeeId);
+        if (employeeResponse == null)
+        {
+            throw new Exceptions.EmployeeNotFoundException("Employee " + employeeId + " does not exist");
+        }
         JsonNode employeeDetailNode = objectMapper.readTree(employeeResponse);
         response.setEmployeeId(employeeDetailNode.get("id").asInt());
         response.setEmployeeForename(employeeDetailNode.get("forename").asText());
@@ -55,6 +63,9 @@ public class EmployeeAndPatientApiService {
                 int patientId = patientNode.get("patientID").asInt();
 
                 String patientDetails = restTemplate.getForObject(patientUrlBase, String.class, patientId);
+                if (patientDetails.isBlank()){
+                    throw new Exceptions.DataQualityIssue("No patients found for this employee");
+                }
                 JsonNode patientDetailsNode = objectMapper.readTree(patientDetails);
 
                 if (uniquePatients.add(patientDetailsNode.get("nhsNumber").asText())) {

@@ -3,7 +3,7 @@ package com.comp2005.AverageDuration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public  class AverageDurationResponse {
+public  class  AverageDurationResponse {
         private int employeeId;
         private String employeeForename;
         private String employeeSurname;

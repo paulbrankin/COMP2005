@@ -39,7 +39,6 @@ public class BusiestDayControllerUnitTest {
 
         // Verify
         verify(apiService).getBusiestDayResponse();
-        // Additional assertions on the response if needed
         assertEquals(200, response.getStatusCodeValue());
 
     }

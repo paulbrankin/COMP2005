@@ -34,7 +34,7 @@ public class AverageDurationApiServiceUnitTest {
         averageDurationApiService = new AverageDurationApiService(restTemplate, objectMapper);
     }
 
-    String employeeResponse = "{\"id\":4,\"surname\":\"Jines\",\"forename\":\"Sarah\"}";
+    String employeeResponse = "{\"id\":4,\"surname\":\"Jones\",\"forename\":\"Sarah\"}";
     String allocationResponse = "[{\"id\":99,\"admissionID\":1,\"employeeID\":4,\"startTime\":\"2020-11-28T16:45:00\",\"endTime\":\"2020-11-28T23:56:00\"}," +
             "{\"id\":2,\"admissionID\":3,\"employeeID\":4,\"startTime\":\"2021-09-23T21:50:00\",\"endTime\":\"2021-09-24T09:50:00\"}," +
             "{\"id\":98,\"admissionID\":6,\"employeeID\":4,\"startTime\":\"2021-09-23T21:50:00\",\"endTime\":\"2021-09-24T09:50:00\"}," +

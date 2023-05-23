@@ -24,7 +24,6 @@ class BusiestDayFunctionalTest {
 
     @BeforeEach
     public void setup() {
-        // Set up any required test data or dependencies
     }
 
     @Test

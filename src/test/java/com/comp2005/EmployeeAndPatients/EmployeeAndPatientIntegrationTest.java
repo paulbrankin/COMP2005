@@ -77,8 +77,6 @@ public class EmployeeAndPatientIntegrationTest {
 
         // Verify
         verify(restTemplateMock).getForObject(anyString(), eq(String.class), eq(employeeId));
-        //verify(objectMapper).readValue(eq(employeeResponse), eq(EmployeeDetails.class));
-        // Additional assertions on the response if needed
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("Sarah", responseBody.get("employeeForename").asText());
         assertEquals("Sarah", responseBody.get("employeeForename").asText());

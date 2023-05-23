@@ -47,7 +47,6 @@ public class FastDischargeControllerUnitTest {
 
         // Verify
         verify(apiService).getFastDischargeResponse();
-        // Additional assertions on the response if needed
         assertEquals(200, response.getStatusCodeValue());
 
     }

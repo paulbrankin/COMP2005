@@ -1,5 +1,6 @@
 package com.comp2005.BusiestDay;
 
+import com.comp2005.Exceptions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,8 +33,10 @@ public class BusiestDayApiService {
             String admissionResponse = restTemplate.getForObject(admissionUrlBase, String.class);
             BusiestDayResponse response = new BusiestDayResponse();
             try {
-                //ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode admissionArray = objectMapper.readTree(admissionResponse);
+                if(admissionArray.isEmpty()) {
+                    throw new Exceptions.DataQualityIssue("BusiestDay method has data quality issues with admissions");
+                }
                 System.out.println("Admission Response : " + admissionResponse);
                 System.out.println("Admission Array : " + admissionArray);
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
@@ -72,9 +75,12 @@ public class BusiestDayApiService {
 
                 response.setBusiestDay(mostFrequentDays.get(0));
                 response.setAdmissions(highestCount);
-                return response;
+                if(mostFrequentDays.isEmpty()) {
+                    throw new Exceptions.DataQualityIssue("BusiestDay method has data quality issues with admissions");
+                } else
+                    return response;
             } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
+                throw new Exceptions.DataQualityIssue("BusiestDay method has data quality issues with admissions");
             }
             //some new change
         }

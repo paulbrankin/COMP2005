@@ -1,5 +1,6 @@
 package com.comp2005.BusiestDay;
 
+import com.comp2005.Exceptions;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.client.RestTemplate;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -56,4 +58,20 @@ public class BusiestDayApiServiceUnitTest {
         assertEquals(expectedResponse.getBusiestDay(), actualResponse.getBusiestDay());
         assertEquals(expectedResponse.getAdmissions(), actualResponse.getAdmissions());
     }
+    @Test
+    public void testEmptyBusiestDayResponse() throws JsonProcessingException {
+        // Mock the REST API response
+        String admissionResponse = "";
+        when(restTemplate.getForObject(Mockito.anyString(), Mockito.eq(String.class))).thenReturn(admissionResponse);
+
+        // Mock the JSON parsing
+        JsonNode admissionArray = new ObjectMapper().readTree(admissionResponse);
+        when(objectMapper.readTree(Mockito.anyString())).thenReturn(admissionArray);
+
+        // Perform the test & verify result
+        assertThrows(Exceptions.DataQualityIssue.class, () -> {
+            busiestDayApiService.getBusiestDayResponse();
+        });
+    }
+
 }

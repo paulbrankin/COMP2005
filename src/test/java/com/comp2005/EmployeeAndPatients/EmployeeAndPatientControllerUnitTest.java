@@ -49,7 +49,6 @@ public class EmployeeAndPatientControllerUnitTest {
 
         // Verify
         verify(apiService).getPatientListResponse(id);
-        // Additional assertions on the response if needed
         assertEquals(200, response.getStatusCodeValue());
 
     }

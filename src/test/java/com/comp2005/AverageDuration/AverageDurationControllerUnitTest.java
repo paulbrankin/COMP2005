@@ -38,7 +38,6 @@ public class AverageDurationControllerUnitTest {
 
         // Verify
         verify(apiService).getAverageDurationResponse(4);
-        // Additional assertions on the response if needed
         assertEquals(200, response.getStatusCodeValue());
 
     }
