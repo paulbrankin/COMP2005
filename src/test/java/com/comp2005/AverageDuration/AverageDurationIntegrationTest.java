@@ -79,7 +79,7 @@ public class AverageDurationIntegrationTest {
         // Additional assertions on the response if needed
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        // some small change
+        // some small changes
 
 
 
